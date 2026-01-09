@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NeoFinance Pro - Ultimate Dark</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body data-theme="dark">
+
+    <div class="app-container">
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchMenu('dashboard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <span>Beranda</span>
+            </button>
+            <button class="nav-item" onclick="switchMenu('savings')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                <span>Tabungan</span>
+            </button>
+        </nav>
+
+        <div id="menu-dashboard" class="menu-content active-menu">
+            <header class="app-header">
+                <div class="brand">
+                    <h1>Neo<span>Finance</span></h1>
+                    <p id="current-date">Memuat tanggal...</p>
+                </div>
+                <div class="status-dot"></div>
+            </header>
+
+            <div class="summary-row">
+                <div class="summary-item">
+                    <small>Tabungan Aktif</small>
+                    <p id="sum-active-saving">0</p>
+                </div>
+                <div class="summary-item">
+                    <small>Target Tercapai</small>
+                    <p id="sum-done-saving">0</p>
+                </div>
+            </div>
+
+            <section class="main-card">
+                <div class="card-content">
+                    <span>Total Saldo Anda</span>
+                    <h2 id="display-balance">Rp 0</h2>
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <small>Pemasukan</small>
+                            <p id="stat-inc" class="text-success">Rp 0</p>
+                        </div>
+                        <div class="stat-box">
+                            <small>Pengeluaran</small>
+                            <p id="stat-exp" class="text-danger">Rp 0</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+                <section class="analysis-card">
+                    <div class="chart-container">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="chart-progress" class="circle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="21" class="percentage" id="chart-pct">0%</text>
+                        </svg>
+                    </div>
+                    <div class="analysis-text">
+                        <h3 id="analysis-status">Status Aman</h3>
+                        <p id="analysis-desc">Analisis pengeluaran Anda.</p>
+                    </div>
+                </section>
+
+                <section class="goal-card">
+                    <div class="goal-info">
+                        <h3>Global Goal</h3>
+                        <h2 id="goal-pct">0%</h2>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="goal-fill" class="fill"></div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="input-panel">
+                <div class="input-header">
+                    <h3>Tambah Transaksi</h3>
+                    <div class="quick-chips">
+                        <button class="chip" data-val="5000">+5k</button>
+                        <button class="chip" data-val="10000">+10k</button>
+                        <button class="chip" data-val="20000">+20k</button>
+                        <button class="chip" data-val="50000">+50k</button>
+                        <button class="chip" data-val="100000">+100k</button>
+                    </div>
+                </div>
+                <div class="amount-wrapper">
+                    <span class="currency">Rp</span>
+                    <input type="text" id="input-amount" placeholder="0" inputmode="numeric">
+                    <button id="btn-backspace"><span class="material-icons-round">backspace</span></button>
+                </div>
+                <div class="details-wrapper">
+                    <input type="text" id="input-desc" placeholder="Keterangan...">
+                    <select id="input-category">
+                        <option value="Umum">Umum</option>
+                        <option value="Makan">Makan</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Tabungan">Tabungan</option>
+                    </select>
+                </div>
+                <div class="type-toggle">
+                    <button class="type-btn active" data-type="income" id="btn-income">Pemasukan</button>
+                    <button class="type-btn" data-type="expense" id="btn-expense">Pengeluaran</button>
+                </div>
+                <button id="btn-save" class="btn-primary">Simpan Transaksi</button>
+            </section>
+
+            <section class="history-section">
+                <div class="history-header">
+                    <h3>Riwayat Aktivitas</h3>
+                    <button id="btn-reset" class="btn-secondary">Reset</button>
+                </div>
+                <div id="list-empty" class="empty-state">Belum ada transaksi terdeteksi.</div>
+                <ul id="transaction-list" class="transaction-list"></ul>
+            </section>
+        </div>
+
+        <div id="menu-savings" class="menu-content">
+            <header class="app-header">
+                <div class="brand">
+                    <h1>Target<span>Savings</span></h1>
+                    <p>Wujudkan impian finansial Anda</p>
+                </div>
+            </header>
+
+            <section class="input-panel">
+                <h3 style="margin-bottom: 15px; font-size: 14px;">Kalkulator Target</h3>
+                <input type="text" id="save-name" placeholder="Nama Tabungan (cth: Beli Motor)" class="full-input">
+                <div class="input-grid">
+                    <input type="text" id="save-target" placeholder="Target (Rp)" inputmode="numeric">
+                    <input type="text" id="save-daily" placeholder="Isi (Rp)" inputmode="numeric">
+                </div>
+                <select id="save-cycle" class="full-input" style="margin-top: 10px;">
+                    <option value="1">Harian</option>
+                    <option value="7">Mingguan</option>
+                    <option value="30">Bulanan</option>
+                </select>
+                <div id="calc-result" class="calc-box">
+                    Masukkan nominal untuk hitung estimasi.
+                </div>
+                <button id="btn-add-saving" class="btn-primary" style="margin-top: 15px;">Buat Rencana Tabungan</button>
+            </section>
+
+            <div class="sub-tab-nav">
+                <button class="sub-tab active" onclick="filterSavings('ongoing')">Berlangsung</button>
+                <button class="sub-tab" onclick="filterSavings('done')">Tercapai</button>
+            </div>
+
+            <div id="savings-list" class="savings-list-container"></div>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-card">
+            <span class="material-icons-round modal-icon">info</span>
+            <h3 id="modal-title">Konfirmasi</h3>
+            <p id="modal-msg">Apakah Anda yakin?</p>
+            <div class="modal-actions">
+                <button id="modal-cancel" class="btn-modal">Batal</button>
+                <button id="modal-confirm" class="btn-modal confirm">Ya, Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Berhasil!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

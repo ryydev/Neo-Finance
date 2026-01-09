@@ -8,6 +8,16 @@ let modalAction = null;
 document.addEventListener('DOMContentLoaded', () => {
     const amountInput = document.getElementById('input-amount');
     
+    // --- FITUR UPDATE TANGGAL (MEMPERBAIKI "MEMUAT TANGGAL") ---
+    const dateEl = document.getElementById('current-date');
+    if(dateEl) {
+        dateEl.innerText = new Date().toLocaleDateString('id-ID', { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long' 
+        });
+    }
+
     // --- FORMATTER ---
     const formatNumber = (val) => {
         let value = val.toString().replace(/\D/g, "");
@@ -25,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- TOMBOL RESET (DIPERBAIKI) ---
+    // --- TOMBOL RESET ---
     const btnReset = document.getElementById('btn-reset');
     if(btnReset) {
         btnReset.onclick = () => { 
@@ -33,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.clear(); 
                 transactions = []; 
                 savings = []; 
-                updateUI(); // Memastikan semua persenan kembali ke 0
+                updateUI(); 
                 showToast("Data berhasil dibersihkan!");
             }); 
         };
@@ -113,7 +123,6 @@ function saveAndUpdate() {
 }
 
 function updateUI() {
-    // 1. Reset Riwayat
     const listContainer = document.getElementById('transaction-list');
     if(!listContainer) return;
     listContainer.innerHTML = '';
@@ -137,7 +146,6 @@ function updateUI() {
         listContainer.appendChild(li);
     });
 
-    // 2. Update Dashboard
     document.getElementById('display-balance').innerText = "Rp " + (totalInc - totalExp).toLocaleString('id-ID');
     document.getElementById('stat-inc').innerText = "Rp " + totalInc.toLocaleString('id-ID');
     document.getElementById('stat-exp').innerText = "Rp " + totalExp.toLocaleString('id-ID');
@@ -264,4 +272,5 @@ function runCalculator() {
         const res = document.getElementById('calc-result');
         if(res) res.innerHTML = `Estimasi Selesai: <b>${eta.toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</b>`;
     }
-}
+        }
+                                            

@@ -1,1 +1,1 @@
-# https://github.com/ryydev/Neo-Finance/
+# https://ryydev.github.io/Neo-Finance/
